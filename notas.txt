@@ -1,0 +1,137 @@
+
+-bootstrap
+npm install bootstrap react-bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+npm install react-router-dom
+
+
+npm install font-awesome
+import 'font-awesome/css/font-awesome.min.css';
+
+
+[
+  {
+    "id": 1,
+    "title": "Adidas F50 Naranjas",
+    "price": 309.95,
+    "description": "Diseñados para la velocidad. Confeccionados con materiales ligeros para mejorar tu rendimiento en el campo y ofrecer máxima tracción en cada sprint.",
+    "category": "botines de fútbol",
+    "image": "https://raw.githubusercontent.com/ChiqoGamer/Ecommerce-Botines/main/images/Botines/f50naranjas.jpg",
+    "rating": {
+      "rate": 4.3,
+      "count": 120
+    }
+  },
+  {
+    "id": 2,
+    "title": "Nike Mercurial Vapor 15",
+    "price": 349.99,
+    "description": "El equilibrio perfecto entre ligereza y control. Ideales para jugadores veloces que buscan precisión en cada toque.",
+    "category": "botines de fútbol",
+    "image": "https://raw.githubusercontent.com/ChiqoGamer/Ecommerce-Botines/main/images/Botines/nikeCelestes.jpg",
+    "rating": {
+      "rate": 4.8,
+      "count": 200
+    }
+  },
+  {
+    "id": 3,
+    "title": "Puma Ultra Ultimate",
+    "price": 289.50,
+    "description": "Botines con suela ultra reactiva y ajuste ceñido. Diseñados para jugadores que buscan velocidad explosiva en el campo.",
+    "category": "botines de fútbol",
+    "image": "https://raw.githubusercontent.com/ChiqoGamer/Ecommerce-Botines/main/images/Botines/f50Blancos.jpg",
+    "rating": {
+      "rate": 4.5,
+      "count": 150
+    }
+  },
+  {
+    "id": 4,
+    "title": "Adidas Predator Accuracy",
+    "price": 319.00,
+    "description": "Control total. Los Predator están pensados para dominar el balón y colocar tus tiros con precisión quirúrgica.",
+    "category": "botines de fútbol",
+    "image": "https://raw.githubusercontent.com/ChiqoGamer/Ecommerce-Botines/main/images/Botines/predatorEdge.jpg",
+    "rating": {
+      "rate": 4.6,
+      "count": 180
+    }
+  },
+  {
+    "id": 5,
+    "title": "Nike Phantom GX Elite",
+    "price": 359.90,
+    "description": "Inspirados en el toque profesional. Comodidad extrema y una superficie de golpeo optimizada para pases y tiros precisos.",
+    "category": "botines de fútbol",
+    "image": "https://raw.githubusercontent.com/ChiqoGamer/Ecommerce-Botines/main/images/Botines/hypervenomRemake.jpg",
+    "rating": {
+      "rate": 4.7,
+      "count": 210
+    }
+  },
+  {
+    "id": 6,
+    "title": "Puma Future Ultimate",
+    "price": 299.99,
+    "description": "Innovación en cada paso. Su sistema FUZIONFIT+ asegura un ajuste adaptable, ideal para jugadores creativos.",
+    "category": "botines de fútbol",
+    "image": "https://raw.githubusercontent.com/ChiqoGamer/Ecommerce-Botines/main/images/Botines/f50Amarillos.jpg",
+    "rating": {
+      "rate": 4.4,
+      "count": 160
+    }
+  },
+  {
+    "id": 7,
+    "title": "Adidas Copa Pure",
+    "price": 279.95,
+    "description": "Clásicos con tecnología moderna. Cuero premium para una sensación natural del balón y confort superior.",
+    "category": "botines de fútbol",
+    "image": "https://raw.githubusercontent.com/ChiqoGamer/Ecommerce-Botines/main/images/Botines/predatorViejos.jpg",
+    "rating": {
+      "rate": 4.9,
+      "count": 240
+    }
+  },
+  {
+    "id": 8,
+    "title": "Nike Tiempo Legend 10",
+    "price": 329.99,
+    "description": "La combinación perfecta de elegancia y resistencia. Cuero FlyTouch Plus que ofrece una suavidad inigualable.",
+    "category": "botines de fútbol",
+    "image": "https://raw.githubusercontent.com/ChiqoGamer/Ecommerce-Botines/main/images/Botines/predatorNegrosNuevos.jpg",
+    "rating": {
+      "rate": 4.8,
+      "count": 195
+    }
+  },
+  {
+    "id": 9,
+    "title": "Adidas X Crazyfast",
+    "price": 339.95,
+    "description": "Diseñados para romper defensas. Con suela ligera y estructura aerodinámica para máxima aceleración.",
+    "category": "botines de fútbol",
+    "image": "https://raw.githubusercontent.com/ChiqoGamer/Ecommerce-Botines/main/images/Botines/f50Azules.jpg",
+    "rating": {
+      "rate": 4.5,
+      "count": 175
+    }
+  },
+  {
+    "id": 10,
+    "title": "Puma King Ultimate",
+    "price": 319.50,
+    "description": "Un clásico reinventado. Confeccionados con materiales reciclados de alta calidad para un rendimiento de élite.",
+    "category": "botines de fútbol",
+    "image": "https://raw.githubusercontent.com/ChiqoGamer/Ecommerce-Botines/refs/heads/main/images/Botines/pumaBatman.jpg",
+    "rating": {
+      "rate": 4.6,
+      "count": 190
+    }
+  }
+]
+
+
