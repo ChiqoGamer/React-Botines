@@ -36,14 +36,14 @@ const ProductList = ({ category = null }) =>
 
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <h1 style={{color:'#ffffffff', marginBottom:'10rem'}}>Loading...</h1>;
   }  
 
   
   return (
     <Row>
       {products.map((product) => (
-        <Col md={4} key={product.id} className="mb-4">
+        <Col md={3} key={product.id} className="mb-4">
           <ProductCard product={product} agregarAlCarrito={handleAgregarAlCarrito} />
         </Col>
       ))}
