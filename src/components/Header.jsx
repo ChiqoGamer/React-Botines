@@ -11,7 +11,7 @@ const Header = () => {
       <Container>
         <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
           <span>
-           <img src="../public/reactBotines.png" style={{ width: '45px', marginRight: '10px' }} alt="Logo" />
+           <img src="../../public/reactBotines.png" style={{ width: '45px', marginRight: '10px' }} alt="Logo" />
             React Botines</span>
         </Navbar.Brand>
 
