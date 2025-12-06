@@ -13,8 +13,8 @@ const Carrito = () => {
 
   if (carrito.length === 0) {
     return (
-      <Container className="mt-4">
-        <h3>Tu carrito está vacío</h3>
+      <Container className="d-flex justify-content-center align-items-center mt-4 mb-5" style={{ minHeight: "75vh" }}>
+        <h3 className="text-white" >Tu carrito está vacío</h3>
       </Container>
     );
   }
