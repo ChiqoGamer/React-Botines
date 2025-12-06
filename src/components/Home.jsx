@@ -1,4 +1,3 @@
-import React from 'react';
 import BannerPrincipal from './BannerPrincipal';
 import ProductList from './ProductList';
 

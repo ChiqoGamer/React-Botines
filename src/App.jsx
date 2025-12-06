@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import AcercaDe from "./components/AcercaDe";
 import Contacto from "./components/Contacto";
 import Carrito from "./components/Carrito";
+import { CartProvider } from "./context/CartContext";
 
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
@@ -14,28 +15,31 @@ import Dashboard from "./components/Dashboard";
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <Header />
+      <CartProvider>
+        <Router>
+          <Header />
 
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/acercade" element={<AcercaDe />} />
-          <Route path="/contacto" element={<Contacto />} />
-          <Route path="/carrito" element={<Carrito />} />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/acercade" element={<AcercaDe />} />
+            <Route path="/contacto" element={<Contacto />} />
+            <Route path="/carrito" element={<Carrito />} />
 
-          <Route
-            path="/dashboard"
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          />
-        </Routes>
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+          </Routes>
 
-        <Footer />
-      </Router>
+          <Footer />
+        </Router>
+
+        </CartProvider>
     </AuthProvider>
   );
 }

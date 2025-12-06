@@ -45,3 +45,9 @@
 .custom-navbar .fa-shopping-cart:hover {
   color: #00e68a !important;
 }
+
+.cart-icon-container {
+  position: relative;
+  display: inline-block;
+}
+

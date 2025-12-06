@@ -1,11 +1,59 @@
-import React from 'react';
-import ProductList from './ProductList';
+import { useContext } from 'react';
+import { Container, Table, Button } from 'react-bootstrap';
+import { CartContext } from '../context/CartContext';
 
 const Carrito = () => {
+  const { carrito, setCarrito } = useContext(CartContext);
+
+  const eliminarDelCarrito = (id) => {
+    setCarrito(prev => prev.filter(producto => producto.id !== id));
+  };
+
+  const total = carrito.reduce((acc, item) => acc + Number(item.price) * item.cantidad, 0);
+
+  if (carrito.length === 0) {
+    return (
+      <Container className="mt-4">
+        <h3>Tu carrito está vacío</h3>
+      </Container>
+    );
+  }
+
   return (
-    <div className="container min-vh-100">
-      <h1 style={{ color: '#00ff99', fontSize:'2rem', margin:'2rem 0'}}>Carrito de compras</h1>
-    </div>
+    <Container className="mt-4 mb-5">
+      <h3 className="text-white">Carrito de compras</h3>
+      <Table striped bordered hover responsive className="mt-3">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Precio unitario</th>
+            <th>Cantidad</th>
+            <th>Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {carrito.map((item) => (
+            <tr key={item.id}>
+              <td>{item.title}</td>
+              <td>${Number(item.price).toFixed(2)}</td>
+              <td>{item.cantidad}</td>
+              <td>${(Number(item.price) * item.cantidad).toFixed(2)}</td>
+              <td>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => eliminarDelCarrito(item.id)}
+                >
+                  Eliminar
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+      <h5 className="text-end text-white">Total a pagar: ${total.toFixed(2)}</h5>
+    </Container>
   );
 };
 
