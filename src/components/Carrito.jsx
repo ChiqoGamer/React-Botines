@@ -21,35 +21,44 @@ const Carrito = () => {
 
   return (
     <Container className="mt-4 mb-5">
-      <h3 className="text-white">Carrito de compras</h3>
-      <Table striped bordered hover responsive className="mt-3">
+      <h3 className="text-white">Descripción de tu pedido</h3>
+      {/* Centrado vertical y horizontal en toda la tabla */}
+      <Table striped bordered hover responsive className="mt-3 text-center">
         <thead>
           <tr>
-            <th>Producto</th>
-            <th>Precio unitario</th>
-            <th>Cantidad</th>
-            <th>Total</th>
-            <th>Accion</th>
+            <th className="align-middle text-center">Producto</th>
+            <th className="align-middle text-center">Precio unitario</th>
+            <th className="align-middle text-center">Cantidad</th>
+            <th className="align-middle text-center">Total</th>
+            <th className="align-middle text-center">Acción</th>
           </tr>
         </thead>
         <tbody>
           {carrito.map((item) => (
             <tr key={item.id}>
-              <td>{item.title}</td>
-              <td>${Number(item.price).toFixed(2)}</td>
-              <td>{item.cantidad}</td>
-              <td>${(Number(item.price) * item.cantidad).toFixed(2)}</td>
-              <td>
-                {/* Centrar el botón dentro de la celda */}
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    onClick={() => eliminarDelCarrito(item.id)}
-                  >
-                    Eliminar
-                  </Button>
+              {/* Alineado horizontal desde el inicio: imagen + título en fila */}
+              <td className="align-middle text-start">
+                <div className="d-flex align-items-center justify-content-start gap-2">
+                  {item.image?.startsWith('http') ? (
+                    <img src={item.image} alt={item.title} width={50} height={50} />
+                  ) : (
+                    <span>{item.image}</span>
+                  )}
+                  <span>{item.title}</span>
                 </div>
+              </td>
+
+              <td className="align-middle text-center">${Number(item.price).toFixed(2)}</td>
+              <td className="align-middle text-center">{item.cantidad}</td>
+              <td className="align-middle text-center">${(Number(item.price) * item.cantidad).toFixed(2)}</td>
+              <td className="align-middle text-center">
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => eliminarDelCarrito(item.id)}
+                >
+                  Eliminar
+                </Button>
               </td>
             </tr>
           ))}
