@@ -1,19 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import ProductCard from './ProductCard';
-import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
 import { ToastContainer } from 'react-toastify';
+import { SearchContext } from "../context/SearchContext";
 
-const ProductList = ({filtro = "All" }) => {
+const ProductList = ({ filtro = "All" }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const { agregarAlCarrito } = useContext(CartContext);
+  const { searchTerm } = useContext(SearchContext);
 
   useEffect(() => {
-    let url = 'https://68f82478deff18f212b543ab.mockapi.io/Botines';
-
-    fetch(url)
+    fetch("https://68f82478deff18f212b543ab.mockapi.io/Botines")
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);
@@ -25,44 +25,49 @@ const ProductList = ({filtro = "All" }) => {
       });
   }, []);
 
-  // 🔍 APLICAR FILTRO DE MARCA
-  const productsFiltered =
-    filtro === "All"
-      ? products
-      : products.filter(
-          (p) => p.marca?.toLowerCase() === filtro.toLowerCase()
-        );
-
   if (loading) {
     return <h1 style={{ color: '#ffffffff', marginBottom: '10rem' }}>Loading...</h1>;
   }
+
+  // ---------------------------------------------
+  // 🔎 FILTRAR POR MARCA + BÚSQUEDA
+  // ---------------------------------------------
+  const finalFilteredProducts = products
+    .filter(p => {
+      if (filtro === "All") return true;
+      return p.marca?.toLowerCase() === filtro.toLowerCase();
+    })
+    .filter(p => {
+      if (!searchTerm) return true; // si no hay búsqueda, no filtramos
+      return (
+        p.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        p.title?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
 
   return (
     <>
       <ToastContainer
         position="bottom-right"
         autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        pauseOnHover
         theme="dark"
         style={{ textAlign: "center" }}
       />
 
-      <Row>
-        {productsFiltered.map((product) => (
-          <Col md={3} key={product.id} className="mb-4">
-            <ProductCard product={product} agregarAlCarrito={agregarAlCarrito} />
-          </Col>
-        ))}
-
-        {productsFiltered.length === 0 && (
-          <h4 className="text-white text-center mt-4">
-            No hay productos de esta marca
-          </h4>
-        )}
-      </Row>
+      {/* SI NO HAY RESULTADOS */}
+      {finalFilteredProducts.length === 0 ? (
+        <h4 className="text-white text-center mt-4 mb-5">
+          No se encontraron productos
+        </h4>
+      ) : (
+        <Row>
+          {finalFilteredProducts.map((product) => (
+            <Col md={3} key={product.id} className="mb-4">
+              <ProductCard product={product} agregarAlCarrito={agregarAlCarrito} />
+            </Col>
+          ))}
+        </Row>
+      )}
     </>
   );
 };

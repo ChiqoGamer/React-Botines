@@ -6,11 +6,13 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import './Header.css';
 import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
+import { SearchContext } from "../context/SearchContext";
 
 const Header = () => {
+  const { searchTerm, setSearchTerm } = useContext(SearchContext);
   const { carrito } = useContext(CartContext);
   const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
-
+  
   return (
     <Navbar expand="lg" className="mb-4 custom-navbar fixed-top">
 
@@ -37,13 +39,15 @@ const Header = () => {
 
           {/* BARRA DE BUSQUEDA */}
           <div className="search-bar-container me-3">
-            <input
-              type="text"
-              placeholder="Buscar..."
-              className="search-input"
-            />
-            <i className="bi bi-search search-icon"></i>
-          </div>
+          <input
+            type="text"
+            placeholder="Buscar..."
+            className="search-input"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <i className="bi bi-search search-icon"></i>
+        </div>
 
           <Link to="/carrito" className="cart-icon-container me-3 position-relative">
             <FontAwesomeIcon icon={faShoppingCart} size="lg" className="fa-shopping-cart" />
