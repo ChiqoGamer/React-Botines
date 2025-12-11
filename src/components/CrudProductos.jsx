@@ -101,8 +101,8 @@ const CrudProductos = () => {
               <td>
                 {/* Botones en columna con mismo ancho y gap vertical */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', width: '130px' }}>
-                  <Button size="sm" style={{ width: '100%' }} onClick={() => handleShow(prod)}>Editar</Button>
-                  <Button size="sm" variant="danger" style={{ width: '100%' }} onClick={() => eliminarProducto(prod.id)}>Eliminar</Button>
+                  <Button size="sm" style={{ width: '100%' }} onClick={() => handleShow(prod)}><i class="bi bi-pencil-square"></i></Button>
+                  <Button size="sm" variant="danger" style={{ width: '100%' }} onClick={() => eliminarProducto(prod.id)}><i class="bi bi-trash-fill"></i></Button>
                 </div>
               </td>
             </tr>
