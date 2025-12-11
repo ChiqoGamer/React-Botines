@@ -6,8 +6,7 @@ const ProductCard = ({ product, agregarAlCarrito  }) => {
   const backgroundColor = '#03624c';
 
   return (
-
-      // Armo la cards
+    
     <Card className="h-100 d-flex flex-column" style={{ backgroundColor: backgroundColor, color: '#ffffff' }}>
       <Card.Img
         variant="top"
@@ -33,6 +32,7 @@ const ProductCard = ({ product, agregarAlCarrito  }) => {
         </Button>
       </Card.Body>
     </Card>
+  
   );
 };
 

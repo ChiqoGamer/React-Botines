@@ -1,4 +1,5 @@
 import { createContext, useState } from 'react';
+import { toast } from 'react-toastify';
 
 // Crear el contexto
 export const CartContext = createContext();
@@ -9,7 +10,6 @@ export const CartProvider = ({ children }) => {
 
   // Agregar producto al carrito
   const agregarAlCarrito = (producto) => {
-    alert("Producto agregado al carrito");
     setCarrito((prevCarrito) => {
       const existe = prevCarrito.find(item => item.id === producto.id);
       if (existe) {
@@ -21,6 +21,9 @@ export const CartProvider = ({ children }) => {
       // Si no existe, agregarlo con cantidad 1
       return [...prevCarrito, { ...producto, cantidad: 1 }];
     });
+    // toast.success('Producto agregado al carrito')
+    toast.success('¡Agregado al carrito! ⚽🔥');
+
   };
 
   // Eliminar producto por ID

@@ -3,6 +3,8 @@ import { Row, Col } from 'react-bootstrap';
 import ProductCard from './ProductCard';
 import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
+import { ToastContainer } from 'react-toastify';
+
 
 const ProductList = ({ category = null }) => {
   const [products, setProducts] = useState([]);
@@ -33,13 +35,27 @@ const ProductList = ({ category = null }) => {
 
 
   return (
-    <Row>
-      {products.map((product) => (
-        <Col md={3} key={product.id} className="mb-4">
-          <ProductCard product={product} agregarAlCarrito={agregarAlCarrito} />
-        </Col>
-      ))}
-    </Row>
+    <>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnHover
+        // theme="colored"
+        theme='dark'
+        style={{ textAlign: "center" }}               // Estilos del contenedor del toast
+      />
+
+      <Row>
+        {products.map((product) => (
+          <Col md={3} key={product.id} className="mb-4">
+            <ProductCard product={product} agregarAlCarrito={agregarAlCarrito} />
+          </Col>
+        ))}
+      </Row>
+    </>
   );
 };
 
