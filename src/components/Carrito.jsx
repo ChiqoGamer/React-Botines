@@ -2,9 +2,19 @@ import { useContext } from 'react';
 import { Container, Table, Button } from 'react-bootstrap';
 import { CartContext } from '../context/CartContext';
 import { ToastContainer, toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 const Carrito = () => {
   const { carrito, setCarrito } = useContext(CartContext);
+
+  const finalizarCompra = () => {
+    toast.success("Compra realizada con éxito 🎉", {
+      autoClose: 3000,
+      position: "top-center",
+      onClose: () => setCarrito([])
+    });
+  };
+
 
   const eliminarDelCarrito = (id) => {
     toast.error('Producto eliminado del carrito 🗑️');
@@ -13,16 +23,10 @@ const Carrito = () => {
 
   const total = carrito.reduce((acc, item) => acc + Number(item.price) * item.cantidad, 0);
 
-  if (carrito.length === 0) {
-    return (
-      <Container className="d-flex justify-content-center align-items-center mt-4 mb-5" style={{ minHeight: "75vh" }}>
-        <h3 className="text-white" >Tu carrito está vacío</h3>
-      </Container>
-    );
-  }
-
   return (
     <>
+    <Container className='vh-100'>
+
       <ToastContainer
         position="bottom-right"
         autoClose={2000}
@@ -30,58 +34,105 @@ const Carrito = () => {
         newestOnTop={false}
         closeOnClick
         pauseOnHover
-        // theme="colored"
         theme='dark'
-        style={{ textAlign: "center" }}               // Estilos del contenedor del toast
+        style={{ textAlign: "center" }}
       />
-      <Container className="mt-4 mb-5">
-        <h3 className="text-white">Descripción de tu pedido</h3>
-        {/* Centrado vertical y horizontal en toda la tabla */}
-        <Table striped bordered hover responsive className="mt-3 text-center">
-          <thead>
-            <tr>
-              <th className="align-middle text-center">Producto</th>
-              <th className="align-middle text-center">Precio unitario</th>
-              <th className="align-middle text-center">Cantidad</th>
-              <th className="align-middle text-center">Total</th>
-              <th className="align-middle text-center">Acción</th>
-            </tr>
-          </thead>
-          <tbody>
-            {carrito.map((item) => (
-              <tr key={item.id}>
-                {/* Alineado horizontal desde el inicio: imagen + título en fila */}
-                <td className="align-middle text-start">
-                  <div className="d-flex align-items-center justify-content-start gap-2">
-                    {item.image?.startsWith('http') ? (
-                      <img src={item.image} alt={item.title} width={50} height={50} />
-                    ) : (
-                      <span>{item.image}</span>
-                    )}
-                    <span>{item.title}</span>
-                  </div>
-                </td>
 
-                <td className="align-middle text-center">${Number(item.price).toFixed(2)}</td>
-                <td className="align-middle text-center">{item.cantidad}</td>
-                <td className="align-middle text-center">${(Number(item.price) * item.cantidad).toFixed(2)}</td>
-                <td className="align-middle text-center">
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    onClick={() => eliminarDelCarrito(item.id)}
-                  >
-                    <i class="bi bi-trash-fill"></i>
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-        <h5 className="text-end text-white">Total a pagar: ${total.toFixed(2)}</h5>
+      <Container className="mt-4 mb-5">
+        <h3 className="text-white mb-4">Descripción de tu pedido</h3>
+
+        <div className="row">
+          {/* 🛒 Columna tabla */}
+          <div className="col-md-8">
+            {carrito.length === 0 ? (
+              <h8 className="text-white">No hay items en el carrito</h8>
+            ) : (
+              <Table striped bordered hover responsive className="text-center">
+                <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th>Precio unitario</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                    <th>Acción</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {carrito.map((item) => (
+                    <tr key={item.id}>
+                      <td className="align-middle text-start">
+                        <div className="d-flex align-items-center gap-2">
+                          {item.image?.startsWith('http') ? (
+                            <img src={item.image} alt={item.title} width={50} height={50} />
+                          ) : (
+                            <span>{item.image}</span>
+                          )}
+                          <span>{item.title}</span>
+                        </div>
+                      </td>
+
+                      <td className="align-middle">${Number(item.price).toFixed(2)}</td>
+
+                      <td className="align-middle">{item.cantidad}</td>
+
+                      <td className="align-middle">
+                        ${(Number(item.price) * item.cantidad).toFixed(2)}
+                      </td>
+
+                      <td className="align-middle">
+                        <Button variant="danger" size="sm" onClick={() => eliminarDelCarrito(item.id)}>
+                          <i className="bi bi-trash-fill"></i>
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+
+            )}
+          </div>
+
+          {/* 📦 Columna caja resumen */}
+          <div className="col-md-4">
+            <div className="p-4 border rounded shadow-sm bg-light">
+              <h5 className="fw-bold mb-3">Resumen de tu compra</h5>
+
+              <div className="d-flex justify-content-between">
+                <span>Productos</span>
+                <span className="fw-bold">{carrito.length}</span>
+              </div>
+
+              <hr />
+
+              <div className="d-flex justify-content-between">
+                <span className="fw-bold">Total</span>
+                <span className="fw-bold fs-5 text-dark">
+                  ${total.toFixed(2)}
+                </span>
+              </div>
+
+              <Button className="w-100 mt-3 fw-bold" style={{ backgroundColor: "#00ff99", color: "#000", border: "none" }}
+                onClick={() => finalizarCompra()}>
+                FINALIZAR COMPRA
+              </Button>
+
+              <Button variant="outline-dark " className="w-100 mt-3" as={Link} to="/">
+                AGREGAR MÁS PRODUCTOS
+              </Button>
+
+              <Button variant="link" className="w-100 mt-2 text-dark" onClick={() => setCarrito([])}>
+                LIMPIAR CARRITO
+              </Button>
+
+            </div>
+          </div>
+        </div>
       </Container>
+    </Container>
     </>
   );
+
 };
 
 export default Carrito;

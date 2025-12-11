@@ -28,7 +28,7 @@ const Header = () => {
         <Nav className="d-flex align-items-center nav-with-separator">
           <Nav.Link as={Link} to="/" className="me-3">Home</Nav.Link>
           <Nav.Link as={Link} to="/acercade" className="me-3">Acerca de</Nav.Link>
-          <Nav.Link as={Link} to="/contacto" className="me-3">Contacto</Nav.Link>
+          <Nav.Link as={Link} to="/contacto" className="me-3"></Nav.Link>
         </Nav>
 
         {/* ICONOS A LA DERECHA */}
