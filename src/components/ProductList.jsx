@@ -5,17 +5,13 @@ import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
 import { ToastContainer } from 'react-toastify';
 
-
-const ProductList = ({ category = null }) => {
+const ProductList = ({filtro = "All" }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const { agregarAlCarrito } = useContext(CartContext);
 
   useEffect(() => {
     let url = 'https://68f82478deff18f212b543ab.mockapi.io/Botines';
-    if (category) {
-      url = `https://fakestoreapi.com/products/category/${category}`;
-    }
 
     fetch(url)
       .then((response) => response.json())
@@ -27,12 +23,19 @@ const ProductList = ({ category = null }) => {
         console.error('Error fetching data:', error);
         setLoading(false);
       });
-  }, [category]);
+  }, []);
+
+  // 🔍 APLICAR FILTRO DE MARCA
+  const productsFiltered =
+    filtro === "All"
+      ? products
+      : products.filter(
+          (p) => p.marca?.toLowerCase() === filtro.toLowerCase()
+        );
 
   if (loading) {
     return <h1 style={{ color: '#ffffffff', marginBottom: '10rem' }}>Loading...</h1>;
   }
-
 
   return (
     <>
@@ -43,17 +46,22 @@ const ProductList = ({ category = null }) => {
         newestOnTop={false}
         closeOnClick
         pauseOnHover
-        // theme="colored"
-        theme='dark'
-        style={{ textAlign: "center" }}               // Estilos del contenedor del toast
+        theme="dark"
+        style={{ textAlign: "center" }}
       />
 
       <Row>
-        {products.map((product) => (
+        {productsFiltered.map((product) => (
           <Col md={3} key={product.id} className="mb-4">
             <ProductCard product={product} agregarAlCarrito={agregarAlCarrito} />
           </Col>
         ))}
+
+        {productsFiltered.length === 0 && (
+          <h4 className="text-white text-center mt-4">
+            No hay productos de esta marca
+          </h4>
+        )}
       </Row>
     </>
   );
