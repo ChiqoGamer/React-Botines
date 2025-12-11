@@ -50,8 +50,8 @@ const Login = () => {
   }
 `}</style>
 
-      <Container className="d-flex justify-content-center align-items-center">
-        <Row className="w-100 justify-content-center mt-5 mb-5">
+      <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '80vh' }}>
+        <Row className="w-100 justify-content-center">
           <Col md={6} lg={4}>
             <Card className="shadow-lg p-4 login-card">
               <Card.Body>

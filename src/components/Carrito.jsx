@@ -29,7 +29,7 @@ const Carrito = () => {
             <th>Precio unitario</th>
             <th>Cantidad</th>
             <th>Total</th>
-            <th></th>
+            <th>Accion</th>
           </tr>
         </thead>
         <tbody>
@@ -40,13 +40,16 @@ const Carrito = () => {
               <td>{item.cantidad}</td>
               <td>${(Number(item.price) * item.cantidad).toFixed(2)}</td>
               <td>
-                <Button
-                  variant="danger"
-                  size="sm"
-                  onClick={() => eliminarDelCarrito(item.id)}
-                >
-                  Eliminar
-                </Button>
+                {/* Centrar el botón dentro de la celda */}
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    onClick={() => eliminarDelCarrito(item.id)}
+                  >
+                    Eliminar
+                  </Button>
+                </div>
               </td>
             </tr>
           ))}

@@ -10,7 +10,7 @@ import { CartProvider } from "./context/CartContext";
 
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
-import Dashboard from "./components/Dashboard";
+import CrudProductos from "./components/CrudProductos";
 
 function App() {
   return (
@@ -30,7 +30,7 @@ function App() {
               path="/dashboard"
               element={
                 <PrivateRoute>
-                  <Dashboard />
+                  <CrudProductos />
                 </PrivateRoute>
               }
             />
