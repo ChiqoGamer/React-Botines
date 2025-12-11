@@ -28,7 +28,7 @@ const ProductCard = ({ product, agregarAlCarrito  }) => {
         <Button variant="primary" 
           style={{ backgroundColor: buttonColor, borderColor: buttonColor, color: textButtonColor, marginTop: 'auto' }}
           onClick={() => agregarAlCarrito(product)}>
-          Agregar al carrito
+          Comprar
         </Button>
       </Card.Body>
     </Card>
