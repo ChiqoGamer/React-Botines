@@ -18,7 +18,7 @@ const Header = () => {
         {/* LOGO / LINKS A LA IZQUIERDA */}
         <Navbar.Brand as={Link} to="/" className="d-flex align-items-center me-4">
           <img
-            src="../../public/reactBotines.png"
+            src="reactBotines.png"
             style={{ width: '45px', marginRight: '10px' }}
             alt="Logo"
           />
