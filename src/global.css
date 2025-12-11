@@ -1,0 +1,9 @@
+body {
+  background-color: #030f0f;
+  padding-top: 80px; /* espacio para el header fixed */
+  margin: 0;
+}
+
+#productos {
+  scroll-margin-top: 80px; /* o el tamaño exacto de tu header */
+}

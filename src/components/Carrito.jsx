@@ -117,7 +117,7 @@ const Carrito = () => {
                 FINALIZAR COMPRA
               </Button>
 
-              <Button variant="outline-dark " className="w-100 mt-3" as={Link} to="/">
+              <Button variant="outline-dark " className="w-100 mt-3" as={Link} to="/#productos">
                 AGREGAR MÁS PRODUCTOS
               </Button>
 

@@ -76,28 +76,29 @@ const CrudProductos = () => {
       <Table striped bordered hover className='mb-5'>
         <thead>
           <tr>
-            <th>Título</th>
+            <th>Producto</th>
             <th>Descripción</th>
             <th>Precio</th>
-            <th>Stock</th>
-            <th>Imagen</th>
+            <th>Stock</th>            
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           {productos.map(prod => (
             <tr key={prod.id}>
-              <td>{prod.title}</td>
+              <td className="align-middle text-start">
+                        <div className="d-flex align-items-center gap-2">
+                          {prod.image?.startsWith('http') ? (
+                            <img src={prod.image} alt={prod.title} width={50} height={50} />
+                          ) : (
+                            <span>{prod.image}</span>
+                          )}
+                          <span>{prod.title}</span>
+                        </div>
+                      </td>            
               <td>{prod.description}</td>
               <td>${Number(prod.price).toFixed(2)}</td>
-              <td>{prod.stock}</td>
-              <td>
-                {prod.image?.startsWith('http') ? (
-                  <img src={prod.image} alt={prod.title} width={50} />
-                ) : (
-                  <span>{prod.image}</span>
-                )}
-              </td>
+              <td>{prod.stock}</td>              
               <td>
                 {/* Botones en columna con mismo ancho y gap vertical */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', width: '130px' }}>

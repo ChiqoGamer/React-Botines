@@ -12,7 +12,8 @@ const Header = () => {
   const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
 
   return (
-    <Navbar expand="lg" className="mb-4 custom-navbar">
+    <Navbar expand="lg" className="mb-4 custom-navbar fixed-top">
+
       <Container>
 
         {/* LOGO / LINKS A LA IZQUIERDA */}

@@ -7,7 +7,7 @@ import AcercaDe from "./components/AcercaDe";
 import Contacto from "./components/Contacto";
 import Carrito from "./components/Carrito";
 import { CartProvider } from "./context/CartContext";
-
+import ScrollToTop from "./components/ScrollToTop";
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import CrudProductos from "./components/CrudProductos";
@@ -17,6 +17,7 @@ function App() {
     <AuthProvider>
       <CartProvider>
         <Router>
+          <ScrollToTop />
           <Header />
 
           <Routes>
@@ -39,7 +40,7 @@ function App() {
           <Footer />
         </Router>
 
-        </CartProvider>
+      </CartProvider>
     </AuthProvider>
   );
 }
