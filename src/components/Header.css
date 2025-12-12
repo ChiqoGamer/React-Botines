@@ -55,13 +55,14 @@
   color: #00ff99 !important;
   background: none !important;
   border: none !important;
+  text-decoration: none !important;
 }
 
 .search-bar-container {
   position: relative;
   display: flex;
   align-items: center;
-  width: 20rem;
+  width: 10rem;
 }
 
 .search-input {
@@ -72,7 +73,7 @@
   background: transparent;
   font-size: 15px;
   color: #ffffff;
-  width: 20rem;
+  width: 10rem;
 }
 
 .search-input:focus {
@@ -103,6 +104,65 @@
   width: 1px;
   background-color: #00ff99;
 }
+
+/* 🔘 BOTÓN HAMBURGUESA PERSONALIZADO */
+.custom-toggle-button {
+  border: none !important;        /* Sin borde */
+  background-color: transparent !important; /* Fondo transparente */
+  padding: 6px;                   /* Un poco más de área clickeable */
+}
+
+/* Icono (las tres rayitas) */
+.custom-toggle-button .navbar-toggler-icon {
+  filter: invert(57%) sepia(95%) saturate(503%) hue-rotate(100deg) brightness(103%) contrast(104%);
+  /* Esto lo convierte en VERDE (#00ff99 aprox) */
+}
+
+/* 🔥 MENÚ QUE SE DESLIZA DESDE LA DERECHA */
+/* slide menu (offcanvas personalizado) */
+.slide-menu {
+  position: fixed;
+  top: 56px;         /* ajustar si tu navbar es más alto */
+  right: -100%;
+  width: 78%;
+  height: calc(100vh - 56px);
+  background-color: #003b29;
+  padding: 20px;
+  transition: right 0.35s ease;
+  z-index: 1050;
+  overflow-y: auto;
+  box-shadow: -8px 0 24px rgba(0,0,0,0.4);
+}
+
+/* cuando está abierto */
+.slide-menu.show {
+  right: 0;
+}
+
+/* evitar que collapse "crezca" en desktop */
+.navbar-collapse {
+  flex-grow: unset !important;
+}
+
+/* backdrop */
+.menu-backdrop {
+  position: fixed;
+  top: 56px; /* mismo top que el menu */
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 56px);
+  background: rgba(0,0,0,0.45);
+  z-index: 1040;
+}
+
+/* pequeñas mejoras visuales */
+.custom-toggle-button {
+  border: none !important;
+  background-color: transparent !important;
+}
+
+
+
 
 
 
