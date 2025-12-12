@@ -62,7 +62,7 @@ const ProductList = ({ filtro = "All" }) => {
       ) : (
         <Row>
           {finalFilteredProducts.map((product) => (
-            <Col md={3} key={product.id} className="mb-4">
+            <Col lg={3} md={6} sm={6} xs={12} key={product.id} className="mb-4">
               <ProductCard product={product} agregarAlCarrito={agregarAlCarrito} />
             </Col>
           ))}
