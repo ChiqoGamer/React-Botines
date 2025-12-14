@@ -118,48 +118,27 @@
   /* Esto lo convierte en VERDE (#00ff99 aprox) */
 }
 
-/* 🔥 MENÚ QUE SE DESLIZA DESDE LA DERECHA */
-/* slide menu (offcanvas personalizado) */
-.slide-menu {
-  position: fixed;
-  top: 56px;         /* ajustar si tu navbar es más alto */
-  right: -100%;
-  width: 78%;
-  height: calc(100vh - 56px);
-  background-color: #003b29;
-  padding: 20px;
-  transition: right 0.35s ease;
-  z-index: 1050;
-  overflow-y: auto;
-  box-shadow: -8px 0 24px rgba(0,0,0,0.4);
+/* ///////////////////////////////////////////////// */
+
+.custom-offcanvas {
+  width: 70vw !important;
+  max-width: 70vw !important;
 }
 
-/* cuando está abierto */
-.slide-menu.show {
-  right: 0;
+.custom-offcanvas .offcanvas-body {
+  background-color: #000000; /* mismo navbar */
+  color: white;
 }
 
-/* evitar que collapse "crezca" en desktop */
-.navbar-collapse {
-  flex-grow: unset !important;
+.custom-offcanvas .offcanvas-header {
+  background-color: #000000;
+  color: white;
 }
 
-/* backdrop */
-.menu-backdrop {
-  position: fixed;
-  top: 56px; /* mismo top que el menu */
-  left: 0;
-  width: 100%;
-  height: calc(100vh - 56px);
-  background: rgba(0,0,0,0.45);
-  z-index: 1040;
+.custom-offcanvas .btn-close {
+  filter: invert(1);
 }
 
-/* pequeñas mejoras visuales */
-.custom-toggle-button {
-  border: none !important;
-  background-color: transparent !important;
-}
 
 
 

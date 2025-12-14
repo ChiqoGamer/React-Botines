@@ -3,12 +3,14 @@ import '../global.css';
 
 const ProductCard = ({ product, agregarAlCarrito }) => {
   const buttonColor = '#00ff99';
-  const textButtonColor = '#000000';
-  const backgroundColor = '#03624c';
+  const textButtonColor = '#ffffffff';
+  // const backgroundColor = '#000000ff'
+  const backgroundColor = '#009471aa';
+  // const backgroundColor = '#03624cff';
 
   return (
 
-    <Card className="h-100 d-flex flex-column" style={{ backgroundColor: backgroundColor, color: '#ffffff' }}>
+    <Card className="h-100 d-flex flex-column" style={{ backgroundColor: backgroundColor, color: textButtonColor }}>
       <Card.Img
         variant="top"
         src={product.image}
@@ -19,7 +21,7 @@ const ProductCard = ({ product, agregarAlCarrito }) => {
 
 
       <Card.Body className="d-flex flex-column">
-        <Card.Title>{product.title}</Card.Title>
+        <Card.Title >{product.title}</Card.Title>
         <Card.Text>
           {product.description.slice(0, 100)}...
         </Card.Text>
@@ -28,7 +30,7 @@ const ProductCard = ({ product, agregarAlCarrito }) => {
         </Card.Text>
         <Button variant="primary"
           className="btn-agregar"
-          style={{ backgroundColor: buttonColor, borderColor: buttonColor, color: textButtonColor, marginTop: 'auto' }}
+          style={{ backgroundColor: buttonColor, borderColor: buttonColor, color:'#000000ff', marginTop: 'auto', fontWeight: 'bold' }}
           onClick={() => agregarAlCarrito(product)}>
           AGREGAR
         </Button>
