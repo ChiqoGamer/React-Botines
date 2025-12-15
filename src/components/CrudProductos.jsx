@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Form, Modal } from 'react-bootstrap';
+import ProductCardAdmin from './ProductCardAdmin';
+
 
 const API_URL = 'https://68f82478deff18f212b543ab.mockapi.io/Botines';
 
@@ -71,9 +73,21 @@ const CrudProductos = () => {
       {/* Contenedor centrado para h2 y botón */}
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '2rem' }}>
         <h2 style={{ color: 'white', marginBottom: '1rem' }}>Administración de Productos</h2>
-        <Button className="mb-3" onClick={() => handleShow()}>Agregar Producto</Button>
+        <Button className="mb-3" onClick={() => handleShow()} style={{backgroundColor:'#00ff99', color:'#000',border: 0}}>Agregar Producto</Button>
       </div>
-      <Table striped bordered hover className='mb-5'>
+      {/* 📱 MOBILE */}
+      <div className="d-block ">
+        {productos.map(prod => (
+          <ProductCardAdmin
+            key={prod.id}
+            producto={prod}
+            onEdit={handleShow}
+            onDelete={eliminarProducto}
+          />
+        ))}
+      </div>
+
+      {/* <Table striped bordered hover className='mb-5'>
         <thead>
           <tr>
             <th>Producto</th>
@@ -100,70 +114,70 @@ const CrudProductos = () => {
               <td>${Number(prod.price).toFixed(2)}</td>
               <td>{prod.stock}</td>              
               <td>
-                {/* Botones en columna con mismo ancho y gap vertical */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', width: '130px' }}>
-                  <Button size="sm" style={{ width: '100%' }} onClick={() => handleShow(prod)}><i class="bi bi-pencil-square"></i></Button>
-                  <Button size="sm" variant="danger" style={{ width: '100%' }} onClick={() => eliminarProducto(prod.id)}><i class="bi bi-trash-fill"></i></Button>
-                </div>
-              </td>
-            </tr>
+                Botones en columna con mismo ancho y gap vertical
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', width: '130px' }}>
+        <Button size="sm" style={{ width: '100%' }} onClick={() => handleShow(prod)}><i class="bi bi-pencil-square"></i></Button>
+        <Button size="sm" variant="danger" style={{ width: '100%' }} onClick={() => eliminarProducto(prod.id)}><i class="bi bi-trash-fill"></i></Button>
+      </div>
+    </td>
+            </tr >
           ))}
-        </tbody>
-      </Table>
+        </tbody >
+      </Table >  */}
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>{editId ? 'Editar' : 'Agregar'} Producto</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-2">
-              <Form.Label>Título</Form.Label>
-              <Form.Control
-                value={form.title}
-                onChange={e => setForm({ ...form, title: e.target.value })}
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-2">
-              <Form.Label>Descripción</Form.Label>
-              <Form.Control
-                value={form.description}
-                onChange={e => setForm({ ...form, description: e.target.value })}
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-2">
-              <Form.Label>Precio</Form.Label>
-              <Form.Control
-                type="number"
-                value={form.price}
-                onChange={e => setForm({ ...form, price: Number(e.target.value) })}
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-2">
-              <Form.Label>Stock</Form.Label>
-              <Form.Control
-                type="number"
-                value={form.stock}
-                onChange={e => setForm({ ...form, stock: Number(e.target.value) })}
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-2">
-              <Form.Label>Imagen (URL)</Form.Label>
-              <Form.Control
-                value={form.image}
-                onChange={e => setForm({ ...form, image: e.target.value })}
-                required
-              />
-            </Form.Group>
-            <Button type="submit" className="mt-2">Guardar</Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
-    </div>
+<Modal show={show} onHide={handleClose}>
+  <Modal.Header closeButton>
+    <Modal.Title>{editId ? 'Editar' : 'Agregar'} Producto</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <Form onSubmit={handleSubmit}>
+      <Form.Group className="mb-2">
+        <Form.Label>Título</Form.Label>
+        <Form.Control
+          value={form.title}
+          onChange={e => setForm({ ...form, title: e.target.value })}
+          required
+        />
+      </Form.Group>
+      <Form.Group className="mb-2">
+        <Form.Label>Descripción</Form.Label>
+        <Form.Control
+          value={form.description}
+          onChange={e => setForm({ ...form, description: e.target.value })}
+          required
+        />
+      </Form.Group>
+      <Form.Group className="mb-2">
+        <Form.Label>Precio</Form.Label>
+        <Form.Control
+          type="number"
+          value={form.price}
+          onChange={e => setForm({ ...form, price: Number(e.target.value) })}
+          required
+        />
+      </Form.Group>
+      <Form.Group className="mb-2">
+        <Form.Label>Stock</Form.Label>
+        <Form.Control
+          type="number"
+          value={form.stock}
+          onChange={e => setForm({ ...form, stock: Number(e.target.value) })}
+          required
+        />
+      </Form.Group>
+      <Form.Group className="mb-2">
+        <Form.Label>Imagen (URL)</Form.Label>
+        <Form.Control
+          value={form.image}
+          onChange={e => setForm({ ...form, image: e.target.value })}
+          required
+        />
+      </Form.Group>
+      <Button type="submit" className="mt-2">Guardar</Button>
+    </Form>
+  </Modal.Body>
+</Modal>
+    </div >
   );
 };
 
