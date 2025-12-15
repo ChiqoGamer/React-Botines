@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faInstagram, faTiktok } from '@fortawesome/free-brands-svg-icons';
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 const Footer = () => {
@@ -13,7 +14,7 @@ const Footer = () => {
           <Col md={4} className="mb-4">
             <h4 className="footer-title">React Botines</h4>
             <p className="footer-text">
-              Donde la pasión por el fútbol se encuentra con el mejor estilo.  
+              Donde la pasión por el fútbol se encuentra con el mejor estilo.
               Rendimiento, diseño y comodidad en cada paso ⚽.
             </p>
           </Col>
@@ -22,11 +23,13 @@ const Footer = () => {
           <Col md={4} className="mb-4">
             <h5 className="footer-subtitle">Enlaces</h5>
             <ul className="footer-links">
-              <li><a href="/">Home</a></li>
-              <li><a href="/acercade">Acerca De</a></li>
-              <li><a href="/contacto">Contacto</a></li>
-              <li><a href="/login">Login</a></li>
+              <li><Link to="/#">Home</Link></li>
+              <li><Link to="/#productos">Tienda</Link></li>
+              <li><Link to="/acercade">Acerca De</Link></li>
+              <li><Link to="/contacto">Contacto</Link></li>
+              <li><Link to="/login">Login</Link></li>
             </ul>
+
           </Col>
 
           {/* Redes sociales */}

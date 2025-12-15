@@ -38,7 +38,7 @@ const Header = () => {
           {/* NAV LINKS */}
           <Nav className="me-auto">
 
-            <Nav.Link as={Link} to="/">
+            <Nav.Link as={Link} to="/#">
               Home
             </Nav.Link>
 

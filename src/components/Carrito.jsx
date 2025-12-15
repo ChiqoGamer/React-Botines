@@ -38,7 +38,7 @@ const Carrito = () => {
         style={{ textAlign: "center" }}
       />
 
-      <Container className="mt-4 mb-5">
+      <Container className="mt-4 mb-5 ">
         <h3 className="text-white mb-4">Descripción de tu pedido</h3>
 
         <div className="row">
