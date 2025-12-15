@@ -2,7 +2,6 @@ import { useEffect, useState, useContext } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import ProductCard from './ProductCard';
 import { CartContext } from '../context/CartContext';
-import { ToastContainer } from 'react-toastify';
 import { SearchContext } from "../context/SearchContext";
 
 const ProductList = ({ filtro = "All" }) => {
@@ -47,12 +46,12 @@ const ProductList = ({ filtro = "All" }) => {
 
   return (
     <>
-      <ToastContainer
+      {/* <ToastContainer
         position="bottom-right"
         autoClose={2000}
         theme="dark"
         style={{ textAlign: "center" }}
-      />
+      /> */}
 
       {/* SI NO HAY RESULTADOS */}
       {finalFilteredProducts.length === 0 ? (

@@ -48,4 +48,55 @@ body {
   object-position: center;
 }
 
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  border: 1px solid #00ff99;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.qty-btn {
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.qty-btn:hover {
+  background-color: rgba(0, 255, 119, 0.15);
+}
+
+.qty-number {
+  width: 40px;
+  text-align: center;
+  font-weight: bold;
+  color: #fff;
+}
+
+.add-cart-btn {
+  background-color: #00ff99 !important;
+  color: #000 !important;
+  font-weight: bold;
+  border: none;
+  padding: 10px 24px;
+}
+
+.add-cart-btn:hover {
+  background-color: #fff !important;
+}
+
+.card-product{
+  text-decoration: none;
+  color: inherit;
+}
+.card-product:hover{
+  box-shadow: #ffffff 0px 0px 5px;
+}
+
+
 

@@ -12,6 +12,7 @@ import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import CrudProductos from "./components/CrudProductos";
 import ProductDetail from './components/ProductDetail';
+import { ToastContainer } from 'react-toastify';
 
 
 function App() {
@@ -21,7 +22,12 @@ function App() {
         <Router>
           <ScrollToTop />
           <Header />
-
+          <ToastContainer
+            position="bottom-right"
+            autoClose={2000}
+            theme="dark"
+            style={{ textAlign: "center" }}
+          />
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Home />} />

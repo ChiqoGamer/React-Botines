@@ -55,42 +55,45 @@ const ProductDetail = () => {
 
                 {/* INFO */}
                 <Col lg={6} className='mt-3'>
-                    <h2 className="fw-bold">{producto.title}</h2>
-
-                    <h3 className="text-success fw-bold">
-                        ${producto.price}
-                    </h3>
-
+                    <h2 className="">{producto.title}</h2>
                     <Badge bg={stock > 0 ? 'success' : 'danger'}>
                         {stock > 0 ? 'En stock' : 'Sin stock'}
                     </Badge>
 
-                    <div className="d-flex align-items-center gap-3 my-4">
-                        <span>Cantidad</span>
-                        <input
-                            type="number"
-                            min={1}
-                            max={stock}
-                            value={cantidad}
-                            onChange={(e) => setCantidad(Number(e.target.value))}
-                            className="form-control"
-                            style={{ width: '80px' }}
-                        />
-                    </div>
+                    <h1 className="fw-bold">
+                        ${producto.price}
+                    </h1>
 
-                    <Button
-                        disabled={stock === 0}
-                        style={{
-                            backgroundColor: '#00ff99',
-                            color: '#000',
-                            border: 'none',
-                            fontWeight: 'bold'
-                        }}
-                        className="w-100 py-3"
-                        onClick={() => agregarAlCarrito({ ...producto, cantidad })}
-                    >
-                        AGREGAR AL CARRITO
-                    </Button>
+
+                    <div className="d-flex align-items-center gap-3 my-4">
+                        {/* CONTADOR */}
+                        <div className="quantity-selector">
+                            <button
+                                className="qty-btn"
+                                onClick={() => setCantidad(prev => Math.max(1, prev - 1))}
+                            >
+                                −
+                            </button>
+
+                            <span className="qty-number">{cantidad}</span>
+
+                            <button
+                                className="qty-btn"
+                                onClick={() => setCantidad(prev => Math.min(stock, prev + 1))}
+                            >
+                                +
+                            </button>
+                        </div>
+
+                        {/* BOTÓN AGREGAR */}
+                        <Button
+                            disabled={stock === 0}
+                            className="add-cart-btn w-100 "
+                            onClick={() => agregarAlCarrito({ ...producto, cantidad })}
+                        >
+                            <i class="bi bi-cart-fill"></i> AGREGAR
+                        </Button>
+                    </div>
 
                     <hr className="my-4" />
 

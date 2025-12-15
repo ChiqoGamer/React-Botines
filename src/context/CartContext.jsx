@@ -10,21 +10,28 @@ export const CartProvider = ({ children }) => {
 
   // Agregar producto al carrito
   const agregarAlCarrito = (producto) => {
-    setCarrito((prevCarrito) => {
-      const existe = prevCarrito.find(item => item.id === producto.id);
-      if (existe) {
-        // Si ya existe, aumentar la cantidad
-        return prevCarrito.map(item =>
-          item.id === producto.id ? { ...item, cantidad: item.cantidad + 1 } : item
-        );
-      }
-      // Si no existe, agregarlo con cantidad 1
-      return [...prevCarrito, { ...producto, cantidad: 1 }];
-    });
-    // toast.success('Producto agregado al carrito')
-    toast.success('¡Agregado al carrito! ⚽🔥');
+  const cantidadAAgregar = producto.cantidad ?? 1;
 
-  };
+  setCarrito((prevCarrito) => {
+    const existe = prevCarrito.find(item => item.id === producto.id);
+
+    if (existe) {
+      return prevCarrito.map(item =>
+        item.id === producto.id
+          ? { ...item, cantidad: item.cantidad + cantidadAAgregar }
+          : item
+      );
+    }
+
+    return [
+      ...prevCarrito,
+      { ...producto, cantidad: cantidadAAgregar }
+    ];
+  });
+
+  toast.success('¡Agregado al carrito! ⚽🔥');
+};
+
 
   // Eliminar producto por ID
   const eliminarDelCarrito = (id) => {
