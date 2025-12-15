@@ -1,4 +1,5 @@
 import { Card, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import '../global.css';
 
 const ProductCard = ({ product, agregarAlCarrito }) => {
@@ -11,6 +12,7 @@ const ProductCard = ({ product, agregarAlCarrito }) => {
   return (
 
     <Card className="h-100 d-flex flex-column" style={{ backgroundColor: backgroundColor, color: textButtonColor }}>
+      <Link to={`/producto/${product.id}`}>
       <Card.Img
         variant="top"
         src={product.image}
@@ -18,6 +20,7 @@ const ProductCard = ({ product, agregarAlCarrito }) => {
         className="card-img-top img-fluid"
         style={{ height: '200px', objectFit: 'cover' }}
       />
+            </Link>
 
 
       <Card.Body className="d-flex flex-column">

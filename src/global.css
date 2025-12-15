@@ -33,3 +33,19 @@ body {
   transform: scale(1.02);
 }
 
+.product-image-wrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* ⬅️ CUADRADO PERFECTO */
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: #111;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ⬅️ CLAVE */
+  object-position: center;
+}
+
+

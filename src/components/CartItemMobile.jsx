@@ -25,11 +25,11 @@ const CartItemMobile = ({ item, onDelete }) => {
         </small>
 
         <small className="text-muted d-block">
-          Precio unitario: ${Number(item.price).toFixed(2)}
+          Precio unitario: ${Number(item.price).toFixed(3)}
         </small>
 
         <span className="fw-bold">
-          Total: ${(item.price * item.cantidad).toFixed(2)}
+          Total: ${(item.price * item.cantidad).toFixed(3)}
         </span>
       </div>
 

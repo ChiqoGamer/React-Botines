@@ -11,6 +11,8 @@ import ScrollToTop from "./components/ScrollToTop";
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import CrudProductos from "./components/CrudProductos";
+import ProductDetail from './components/ProductDetail';
+
 
 function App() {
   return (
@@ -26,7 +28,6 @@ function App() {
             <Route path="/acercade" element={<AcercaDe />} />
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/carrito" element={<Carrito />} />
-
             <Route
               path="/dashboard"
               element={
@@ -35,6 +36,7 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route path="/producto/:id" element={<ProductDetail />} />
           </Routes>
 
           <Footer />
