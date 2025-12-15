@@ -21,7 +21,7 @@ const ProductCard = ({ product, agregarAlCarrito }) => {
 
 
       <Card.Body className="d-flex flex-column">
-        <Card.Title >{product.title}</Card.Title>
+        <Card.Title>{product.title}</Card.Title>
         <Card.Text>
           {product.description.slice(0, 100)}...
         </Card.Text>

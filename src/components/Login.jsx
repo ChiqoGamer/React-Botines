@@ -36,7 +36,7 @@ const Login = () => {
     color: white !important;
   }
   .input-dark::placeholder {
-    color: #00ffff73 !important;
+    color: #00000039 !important;
   }
   .login-btn {
     background-color: #00ff88 !important;
