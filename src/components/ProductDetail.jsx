@@ -2,10 +2,11 @@ import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Row, Col, Button, Badge, Spinner } from 'react-bootstrap';
 import { CartContext } from '../context/CartContext';
-import { ToastContainer } from 'react-toastify';
 import '../global.css';
 
 const API_URL = 'https://68f82478deff18f212b543ab.mockapi.io/Botines';
+
+
 
 const ProductDetail = () => {
     const { id } = useParams(); // ⬅️ ID DE LA URL
@@ -14,6 +15,7 @@ const ProductDetail = () => {
     const [producto, setProducto] = useState(null);
     const [cantidad, setCantidad] = useState(1);
     const [loading, setLoading] = useState(true);
+    const [activeImage, setActiveImage] = useState(null);
 
     useEffect(() => {
         fetch(API_URL)
@@ -21,13 +23,11 @@ const ProductDetail = () => {
             .then(data => {
                 const prod = data.find(p => String(p.id) === String(id));
                 setProducto(prod);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error(err);
+                setActiveImage(prod?.images?.[0] ?? prod?.image);
                 setLoading(false);
             });
     }, [id]);
+
 
     if (loading) {
         return <Spinner animation="border" className="text-light" />;
@@ -38,19 +38,40 @@ const ProductDetail = () => {
     }
 
     const stock = producto.stock ?? 10;
-    
+
     return (
         <div className="container my-5 text-white">
             <Row className="g-5">
                 {/* IMAGEN */}
-                <Col lg={6} className='mt-3'>
+                <Col lg={6} className='mt-3 d-flex gap-3'>
+                 <div className="d-flex gap-2 flex-column">
+                        {(producto.images ?? [producto.image]).map((img, index) => (
+                            <img
+                                key={index}
+                                src={img}
+                                alt={`thumb-${index}`}
+                                onClick={() => setActiveImage(img)}
+                                style={{
+                                    width: "70px",
+                                    height: "70px",
+                                    objectFit: "cover",
+                                    cursor: "pointer",
+                                    border: activeImage === img ? "2px solid #00ff99" : "0px solid #ccc",
+                                    borderRadius: "8px"
+                                }}
+                            />
+                        ))}
+                    </div>
                     <div className="product-image-wrapper">
                         <img
-                            src={producto.image}
+                            src={activeImage}
                             alt={producto.title}
                             className="product-image"
                         />
+
                     </div>
+                   
+
                 </Col>
 
 
@@ -100,6 +121,25 @@ const ProductDetail = () => {
 
                     <h5>Descripción</h5>
                     <p>{producto.description}</p>
+
+                     {/* <div className="d-flex gap-2 mt-3 ">
+                        {(producto.images ?? [producto.image]).map((img, index) => (
+                            <img
+                                key={index}
+                                src={img}
+                                alt={`thumb-${index}`}
+                                onClick={() => setActiveImage(img)}
+                                style={{
+                                    width: "70px",
+                                    height: "70px",
+                                    objectFit: "cover",
+                                    cursor: "pointer",
+                                    border: activeImage === img ? "2px solid #0d6efd" : "1px solid #ccc",
+                                    borderRadius: "8px"
+                                }}
+                            />
+                        ))}
+                    </div> */}
                 </Col>
             </Row>
         </div>

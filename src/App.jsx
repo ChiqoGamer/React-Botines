@@ -13,40 +13,46 @@ import PrivateRoute from "./components/PrivateRoute";
 import CrudProductos from "./components/CrudProductos";
 import ProductDetail from './components/ProductDetail';
 
-
-
-
 function App() {
   return (
     <AuthProvider>
       <CartProvider>
         <Router>
           <ScrollToTop />
-          <Header />
-         
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/acercade" element={<AcercaDe />} />
-            <Route path="/contacto" element={<Contacto />} />
-            <Route path="/carrito" element={<Carrito />} />
-            <Route
-              path="/dashboard"
-              element={
-                <PrivateRoute>
-                  <CrudProductos />
-                </PrivateRoute>
-              }
-            />
-            <Route path="/producto/:id" element={<ProductDetail />} />
-          </Routes>
 
-          <Footer />
+          {/* 👇 CONTENEDOR PRINCIPAL */}
+          <div className="d-flex flex-column min-vh-100">
+
+            <Header />
+
+            {/* 👇 CONTENIDO */}
+            <main className="flex-fill">
+              <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/acercade" element={<AcercaDe />} />
+                <Route path="/contacto" element={<Contacto />} />
+                <Route path="/carrito" element={<Carrito />} />
+                <Route
+                  path="/dashboard"
+                  element={
+                    <PrivateRoute>
+                      <CrudProductos />
+                    </PrivateRoute>
+                  }
+                />
+                <Route path="/producto/:id" element={<ProductDetail />} />
+              </Routes>
+            </main>
+
+            <Footer />
+
+          </div>
         </Router>
-
       </CartProvider>
     </AuthProvider>
   );
 }
+
 
 export default App;
