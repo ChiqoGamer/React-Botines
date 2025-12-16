@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Container, Table, Button } from 'react-bootstrap';
 import { CartContext } from '../context/CartContext';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import CartItemMobile from './CartItemMobile';
 import '../global.css';
@@ -12,7 +12,7 @@ const Carrito = () => {
 
   const finalizarCompra = () => {
     toast.success("Compra realizada con éxito 🎉", {
-      autoClose: 3000,
+      autoClose: 2000,
       position: "top-center",
       onClose: () => setCarrito([])
     });
@@ -29,17 +29,6 @@ const Carrito = () => {
   return (
     <>
       <Container >
-
-        <ToastContainer
-          position="bottom-right"
-          autoClose={2000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          pauseOnHover
-          theme='dark'
-          style={{ textAlign: "center" }}
-        />
 
         <Container className="mt-4 mb-5 ">
           <h3 className="text-white mb-4">Descripción de tu pedido</h3>

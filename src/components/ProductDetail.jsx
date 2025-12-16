@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Row, Col, Button, Badge, Spinner } from 'react-bootstrap';
 import { CartContext } from '../context/CartContext';
+import { ToastContainer } from 'react-toastify';
 import '../global.css';
 
 const API_URL = 'https://68f82478deff18f212b543ab.mockapi.io/Botines';
@@ -37,7 +38,7 @@ const ProductDetail = () => {
     }
 
     const stock = producto.stock ?? 10;
-
+    
     return (
         <div className="container my-5 text-white">
             <Row className="g-5">

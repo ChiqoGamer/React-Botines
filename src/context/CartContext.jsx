@@ -12,25 +12,29 @@ export const CartProvider = ({ children }) => {
   const agregarAlCarrito = (producto) => {
   const cantidadAAgregar = producto.cantidad ?? 1;
 
-  setCarrito((prevCarrito) => {
-    const existe = prevCarrito.find(item => item.id === producto.id);
+  const existe = carrito.find(item => item.id === producto.id);
 
-    if (existe) {
-      return prevCarrito.map(item =>
+  if (existe) {
+    setCarrito(prev =>
+      prev.map(item =>
         item.id === producto.id
           ? { ...item, cantidad: item.cantidad + cantidadAAgregar }
           : item
-      );
-    }
+      )
+    );
 
-    return [
-      ...prevCarrito,
-      { ...producto, cantidad: cantidadAAgregar }
-    ];
-  });
+    toast.success("Cantidad actualizada en carrito ⚽");
+    return;
+  }
 
-  toast.success('¡Agregado al carrito! ⚽🔥');
+  setCarrito(prev => [
+    ...prev,
+    { ...producto, cantidad: cantidadAAgregar }
+  ]);
+
+  toast.success("¡Agregado al carrito! ⚽🔥");
 };
+
 
 
   // Eliminar producto por ID
@@ -43,6 +47,28 @@ export const CartProvider = ({ children }) => {
     setCarrito([]);
   };
 
+  const increaseQuantity = (id) => {
+  setCarrito(prev =>
+    prev.map(item =>
+      item.id === id
+        ? { ...item, cantidad: item.cantidad + 1 }
+        : item
+    )
+  );
+};
+
+const decreaseQuantity = (id) => {
+  setCarrito(prev =>
+    prev
+      .map(item =>
+        item.id === id
+          ? { ...item, cantidad: item.cantidad - 1 }
+          : item
+      )
+      .filter(item => item.cantidad > 0)
+  );
+};
+
   return (
     <CartContext.Provider
       value={{
@@ -50,7 +76,9 @@ export const CartProvider = ({ children }) => {
         setCarrito,
         agregarAlCarrito,
         eliminarDelCarrito,
-        vaciarCarrito
+        vaciarCarrito,
+        increaseQuantity,
+        decreaseQuantity
       }}
     >
       {children}

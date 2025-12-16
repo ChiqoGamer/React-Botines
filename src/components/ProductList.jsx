@@ -46,13 +46,7 @@ const ProductList = ({ filtro = "All" }) => {
 
   return (
     <>
-      {/* <ToastContainer
-        position="bottom-right"
-        autoClose={2000}
-        theme="dark"
-        style={{ textAlign: "center" }}
-      /> */}
-
+     
       {/* SI NO HAY RESULTADOS */}
       {finalFilteredProducts.length === 0 ? (
         <h4 className="text-white text-center mt-4 mb-5">
