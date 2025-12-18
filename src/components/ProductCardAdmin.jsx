@@ -11,7 +11,8 @@ const ProductCardAdmin = ({ producto, onEdit, onDelete }) => {
         style={{
           width: '90px',
           height: '90px',
-          objectFit: 'cover'
+          objectFit: 'cover',
+          borderRadius: '8px',
         }}
         className="me-3"
       />

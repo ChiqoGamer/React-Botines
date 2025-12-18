@@ -114,7 +114,7 @@ const Carrito = () => {
                 <div className="d-flex justify-content-between">
                   <span className="fw-bold">Total</span>
                   <span className="fw-bold fs-5 text-dark">
-                    ${total.toFixed(2)}
+                    ${total.toFixed(3)}
                   </span>
                 </div>
 
