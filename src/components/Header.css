@@ -140,6 +140,40 @@
   filter: invert(1);
 }
 
+/* ///////////////////////////////////////////////// */
+.search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-toggle-icon {
+  font-size: 1.2rem;
+  color: #00ff99;
+  cursor: pointer;
+}
+
+.search-input {
+  width: 0;
+  opacity: 0;
+  padding: 6px 10px;
+  margin-right: 8px;
+  border: none;
+  outline: none;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.search-input.expand {
+  width: 145px;
+  opacity: 1;
+}
+
+.search-input::placeholder {
+  color: #aaa;
+}
+
+
 
 
 

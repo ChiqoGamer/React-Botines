@@ -14,6 +14,8 @@ const Header = () => {
 
   // ⭐ Estado para controlar si el menú está abierto
   const [expanded, setExpanded] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+
 
   return (
     <Navbar
@@ -57,16 +59,25 @@ const Header = () => {
           </Nav>
 
           {/* SEARCH */}
-          <div className="search-bar-container me-3">
-            <input
-              type="text"
-              placeholder="Buscar..."
-              className="search-input"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <i className="bi bi-search search-icon"></i>
+          <div className="search-wrapper me-3">
+            {showSearch && (
+              <input
+                type="text"
+                placeholder="Buscar..."
+                className="search-input expand"
+                value={searchTerm}
+                autoFocus
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onBlur={() => setShowSearch(false)}
+              />
+            )}
+
+            <i
+              className="bi bi-search search-toggle-icon"
+              onClick={() => setShowSearch(prev => !prev)}
+            ></i>
           </div>
+
 
           {/* CARRITO */}
           <Link to="/carrito" className="cart-icon-container me-3 position-relative">
@@ -90,15 +101,23 @@ const Header = () => {
         <div className="d-flex align-items-center ms-auto d-lg-none">
 
           {/* SEARCH */}
-          <div className="search-bar-container me-3">
-            <input
-              type="text"
-              placeholder="Buscar..."
-              className="search-input"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <i className="bi bi-search search-icon"></i>
+          <div className="search-wrapper me-3">
+            {showSearch && (
+              <input
+                type="text"
+                placeholder="Buscar..."
+                className="search-input expand"
+                value={searchTerm}
+                autoFocus
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onBlur={() => setShowSearch(false)}
+              />
+            )}
+
+            <i
+              className="bi bi-search search-toggle-icon"
+              onClick={() => setShowSearch(prev => !prev)}
+            ></i>
           </div>
 
           {/* CARRITO */}
@@ -139,7 +158,7 @@ const Header = () => {
                 Home
               </Nav.Link>
 
-               <Nav.Link as={Link} to="/#productos" onClick={() => setExpanded(false)}>
+              <Nav.Link as={Link} to="/#productos" onClick={() => setExpanded(false)}>
                 Tienda
               </Nav.Link>
 
