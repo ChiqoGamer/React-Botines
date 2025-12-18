@@ -6,6 +6,8 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import './Header.css';
 import { CartContext } from '../context/CartContext';
 import { SearchContext } from "../context/SearchContext";
+import { useNavigate } from 'react-router-dom';
+
 
 const Header = () => {
   const { searchTerm, setSearchTerm } = useContext(SearchContext);
@@ -15,6 +17,18 @@ const Header = () => {
   // ⭐ Estado para controlar si el menú está abierto
   const [expanded, setExpanded] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const [localSearch, setLocalSearch] = useState("");
+  const navigate = useNavigate();
+
+
+  const confirmSearch = () => {
+    setSearchTerm(localSearch);   // 🔥 recién acá se filtra
+    setShowSearch(false);
+
+    // 🔽 ir a la sección productos
+    navigate("/#productos");
+  };
+
 
 
   return (
@@ -65,18 +79,29 @@ const Header = () => {
                 type="text"
                 placeholder="Buscar..."
                 className="search-input expand"
-                value={searchTerm}
+                value={localSearch}
                 autoFocus
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onBlur={() => setShowSearch(false)}
+                onChange={(e) => setLocalSearch(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    confirmSearch();
+                  }
+                }}
               />
             )}
 
             <i
               className="bi bi-search search-toggle-icon"
-              onClick={() => setShowSearch(prev => !prev)}
+              onClick={() => {
+                if (showSearch) {
+                  confirmSearch();  // 🔍 confirmar
+                } else {
+                  setShowSearch(true); // 🔍 abrir input
+                }
+              }}
             ></i>
           </div>
+
 
 
           {/* CARRITO */}
