@@ -13,6 +13,8 @@ const Home = () => {
     precioMax: ""
   });
 
+  const [tempFilters, setTempFilters] = useState(filters);
+
   return (
     <div className="container">
       <BannerPrincipal />
@@ -41,7 +43,10 @@ const Home = () => {
           <Button
             variant="outline-light"
             size="sm"
-            onClick={() => setShowFilters(true)}
+            onClick={() => {
+              setTempFilters(filters);
+              setShowFilters(true);
+            }}
             className="d-flex align-items-center gap-2"
           >
             Filtrar
@@ -54,64 +59,81 @@ const Home = () => {
 
       {/* OFFCANVAS */}
       <Offcanvas
-  show={showFilters}
-  onHide={() => setShowFilters(false)}
-  placement="end"
-  data-bs-theme="dark"
-  style={{ backgroundColor: "#000000ff" }}
->
-  <Offcanvas.Header closeButton>
-    <Offcanvas.Title>Filtros</Offcanvas.Title>
-  </Offcanvas.Header>
+        show={showFilters}
+        onHide={() => setShowFilters(false)}
+        placement="end"
+        data-bs-theme="dark"
+        style={{ backgroundColor: "#000000ff" }}
+      >
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Filtros</Offcanvas.Title>
+        </Offcanvas.Header>
 
-  <Offcanvas.Body>
+        <Offcanvas.Body>
 
-    <div className="mb-4">
-      <h6 className="fw-bold mb-2 text-light">Marca</h6>
+          <div className="mb-4">
+            <h6 className="fw-bold mb-2 text-light">Marca</h6>
 
-      {["All", "Nike", "Adidas", "Puma"].map(marca => (
-        <Form.Check
-          key={marca}
-          type="radio"
-          name="marca"
-          label={marca}
-          checked={filters.marca === marca}
-          onChange={() =>
-            setFilters(prev => ({ ...prev, marca }))
-          }
-          className="mb-2 text-light"
-        />
-      ))}
-    </div>
+            {["All", "Nike", "Adidas", "Puma"].map(marca => (
+              <Form.Check
+                key={marca}
+                type="radio"
+                name="marca"
+                label={marca}
+                checked={tempFilters.marca === marca}
+                onChange={() =>
+                  setTempFilters(prev => ({ ...prev, marca }))
+                }
+                className="mb-2 text-light"
+              />
+            ))}
 
-    <div className="mb-4">
-      <h6 className="fw-bold mb-2 text-light">Precio máximo</h6>
-      <Form.Control
-        type="number"
-        placeholder="Ej: 200000"
-        value={filters.precioMax}
-        className="bg-dark text-light border-secondary"
-        onChange={(e) =>
-          setFilters(prev => ({
-            ...prev,
-            precioMax: e.target.value
-          }))
-        }
-      />
-    </div>
+          </div>
 
-    <div className="d-flex gap-2">
-      <Button variant="outline-light" className="w-100" onClick={() => setFilters({ marca: "All", precioMax: "" })}>
-        Limpiar
-      </Button>
+          <div className="mb-4">
+            <h6 className="fw-bold mb-2 text-light">Precio máximo</h6>
+            <Form.Control
+              type="number"
+              placeholder="Ej: 200000"
+              value={tempFilters.precioMax}
+              className="bg-dark text-light border-secondary"
+              onChange={(e) =>
+                setTempFilters(prev => ({
+                  ...prev,
+                  precioMax: e.target.value
+                }))
+              }
+            />
 
-      <Button variant="light" className="w-100" onClick={() => setShowFilters(false)}>
-        Aplicar
-      </Button>
-    </div>
+          </div>
 
-  </Offcanvas.Body>
-</Offcanvas>
+          <div className="d-flex gap-2">
+            <Button
+              variant="outline-light"
+              className="w-100"
+              onClick={() =>
+                setTempFilters({ marca: "All", precioMax: "" })
+              }
+            >
+              Limpiar
+            </Button>
+
+
+            <Button
+              variant="light"
+              className="w-100"
+              onClick={() => {
+                setFilters(tempFilters);
+                setShowFilters(false);
+              }}
+            >
+              Aplicar
+            </Button>
+
+          </div>
+
+        </Offcanvas.Body>
+      </Offcanvas>
 
 
     </div>
