@@ -4,12 +4,19 @@ import ProductList from './ProductList';
 import { Button, Form, Offcanvas } from 'react-bootstrap';
 import { SearchContext } from "../context/SearchContext";
 
+
 const Home = () => {
   const [orden, setOrden] = useState("default");
   const [showFilters, setShowFilters] = useState(false);
   const [productsCount, setProductsCount] = useState(0);
 
-  const { searchTriggered, resetSearchTrigger, setSearchTerm } = useContext(SearchContext);
+  const {
+    searchTerm,
+    setSearchTerm,
+    searchTriggered,
+    resetSearchTrigger
+  } = useContext(SearchContext);
+
 
 
   const [filters, setFilters] = useState({
@@ -65,6 +72,49 @@ const Home = () => {
             <i className="bi bi-sliders"></i>
           </Button>
         </div>
+
+        {/* CHIPS DE FILTROS ACTIVOS */}
+        <div className="d-flex flex-wrap gap-2 mb-3">
+
+          {/* 🔍 CHIP BUSQUEDA */}
+          {searchTerm && (
+            <span className="badge rounded-pill bg-light d-flex align-items-center gap-2 text-dark">
+              <i className="bi bi-search"></i> {searchTerm}
+              <button
+                className="btn btn-sm btn-close btn-close-dark"
+                onClick={() => setSearchTerm("")}
+              />
+            </span>
+          )}
+
+          {/* 🏷️ CHIP MARCA */}
+          {filters.marca !== "All" && (
+            <span className="badge rounded-pill bg-light d-flex align-items-center gap-2 text-dark">
+              Marca: {filters.marca}
+              <button
+                className="btn btn-sm btn-close btn-close-dark"
+                onClick={() =>
+                  setFilters(prev => ({ ...prev, marca: "All" }))
+                }
+              />
+            </span>
+          )}
+
+          {/* 💰 CHIP PRECIO */}
+          {filters.precioMax && (
+            <span className="badge rounded-pill bg-light d-flex align-items-center gap-2 text-dark">
+              Hasta ${filters.precioMax}
+              <button
+                className="btn btn-sm btn-close btn-close-dark"
+                onClick={() =>
+                  setFilters(prev => ({ ...prev, precioMax: "" }))
+                }
+              />
+            </span>
+          )}
+
+        </div>
+
 
         <ProductList orden={orden} filters={filters} setProductsCount={setProductsCount} />
       </div>

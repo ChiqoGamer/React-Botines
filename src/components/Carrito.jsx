@@ -24,8 +24,8 @@ const Carrito = () => {
     setCarrito(prev => prev.filter(producto => producto.id !== id));
   };
 
-  const total = carrito.reduce((acc, item) => acc + Number(item.price) * item.cantidad, 0);
-
+  const total = carrito.reduce((acc, item) => acc + Number(item.price.replace(/\./g, "")) * item.cantidad, 0);
+  
   return (
     <>
       <Container >
@@ -114,7 +114,7 @@ const Carrito = () => {
                 <div className="d-flex justify-content-between">
                   <span className="fw-bold">Total</span>
                   <span className="fw-bold fs-5 text-dark">
-                    ${total.toFixed(3)}
+                    $ {total.toLocaleString("es-AR")}
                   </span>
                 </div>
 

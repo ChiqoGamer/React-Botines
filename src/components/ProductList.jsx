@@ -1,16 +1,36 @@
 import { useEffect, useState, useContext, useMemo } from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import ProductCard from './ProductCard';
 import { CartContext } from '../context/CartContext';
 import { SearchContext } from "../context/SearchContext";
 
+const PRODUCTS_PER_PAGE = 8;
+
 const ProductList = ({ filters, orden, setProductsCount }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const { agregarAlCarrito } = useContext(CartContext);
   const { searchTerm } = useContext(SearchContext);
 
+  /* 🔁 Resetear página al cambiar filtros o búsqueda */
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters, searchTerm]);
+
+  useEffect(() => {
+  const section = document.getElementById("productos");
+  if (section) {
+    section.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+}, [currentPage]);
+
+
+  /* 📦 Fetch productos */
   useEffect(() => {
     fetch("https://68f82478deff18f212b543ab.mockapi.io/Botines")
       .then(res => res.json())
@@ -24,18 +44,18 @@ const ProductList = ({ filters, orden, setProductsCount }) => {
       });
   }, []);
 
-  const finalFilteredProducts = useMemo(() => {
+  /* 🔍 Filtros + búsqueda + orden */
+  const filteredProducts = useMemo(() => {
     let filtered = products
       .filter(p => {
-        const marcaSeleccionada = filters?.marca ?? "All";
-        if (marcaSeleccionada === "All") return true;
-        return p.marca?.toLowerCase() === marcaSeleccionada.toLowerCase();
+        if (!filters?.marca || filters.marca === "All") return true;
+        return p.marca?.toLowerCase() === filters.marca.toLowerCase();
       })
       .filter(p => {
         if (!searchTerm) return true;
         return (
-          p.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          p.title?.toLowerCase().includes(searchTerm.toLowerCase())
+          p.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          p.name?.toLowerCase().includes(searchTerm.toLowerCase())
         );
       })
       .filter(p => {
@@ -67,36 +87,88 @@ const ProductList = ({ filters, orden, setProductsCount }) => {
     return filtered;
   }, [products, filters, searchTerm, orden]);
 
+  /* 🔢 Contador */
   useEffect(() => {
-    setProductsCount(finalFilteredProducts.length);
-  }, [finalFilteredProducts, setProductsCount]);
+    setProductsCount(filteredProducts.length);
+  }, [filteredProducts, setProductsCount]);
 
-  // ⬇️ AHORA SÍ, DESPUÉS DE TODOS LOS HOOKS
   if (loading) {
-    return <h1 style={{ color: '#fff', marginBottom: '10rem' }}>Loading...</h1>;
+    return <h4 className="text-white text-center my-5">Cargando productos...</h4>;
   }
+
+  /* 📄 PAGINADO */
+  const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
+
+  const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
+  const endIndex = startIndex + PRODUCTS_PER_PAGE;
+
+  const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
 
   return (
     <>
-      {finalFilteredProducts.length === 0 ? (
+      {filteredProducts.length === 0 ? (
         <h4 className="text-white text-center mt-4 mb-5">
           No se encontraron productos
         </h4>
       ) : (
-        <Row>
-          {finalFilteredProducts.map(product => (
-            <Col lg={3} md={6} sm={6} xs={12} key={product.id} className="mb-4">
-              <ProductCard
-                product={product}
-                agregarAlCarrito={agregarAlCarrito}
-              />
-            </Col>
-          ))}
-        </Row>
+        <>
+          <Row>
+            {paginatedProducts.map(product => (
+              <Col
+                lg={3}
+                md={6}
+                sm={6}
+                xs={12}
+                key={product.id}
+                className="mb-4"
+              >
+                <ProductCard
+                  product={product}
+                  agregarAlCarrito={agregarAlCarrito}
+                />
+              </Col>
+            ))}
+          </Row>
+
+          {/* 🔢 CONTROLES DE PAGINADO */}
+          {totalPages > 1 && (
+            <div className="d-flex justify-content-center gap-2 mt-4 mb-5">
+
+              <Button
+                size="sm"
+                variant="outline-light"
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage(prev => prev - 1)}
+              >
+                ←
+              </Button>
+
+              {[...Array(totalPages)].map((_, index) => (
+                <Button
+                  key={index}
+                  size="sm"
+                  variant={currentPage === index + 1 ? "light" : "outline-light"}
+                  onClick={() => setCurrentPage(index + 1)}
+                >
+                  {index + 1}
+                </Button>
+              ))}
+
+              <Button
+                size="sm"
+                variant="outline-light"
+                disabled={currentPage === totalPages}
+                onClick={() => setCurrentPage(prev => prev + 1)}
+              >
+                →
+              </Button>
+
+            </div>
+          )}
+        </>
       )}
     </>
   );
 };
-
 
 export default ProductList;
