@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container, Badge, Offcanvas } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,7 +10,9 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Header = () => {
-  const { searchTerm, setSearchTerm } = useContext(SearchContext);
+  // const { searchTerm, setSearchTerm } = useContext(SearchContext);
+  const { triggerSearch } = useContext(SearchContext);
+
   const { carrito } = useContext(CartContext);
   const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
 
@@ -19,15 +21,17 @@ const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [localSearch, setLocalSearch] = useState("");
   const navigate = useNavigate();
+  const searchRef = useRef(null);
+
 
 
   const confirmSearch = () => {
-    setSearchTerm(localSearch);   // 🔥 recién acá se filtra
+    triggerSearch(localSearch);   // 🔥 dispara búsqueda global
     setShowSearch(false);
-
-    // 🔽 ir a la sección productos
     navigate("/#productos");
+    setLocalSearch("");
   };
+
 
 
 
@@ -73,7 +77,7 @@ const Header = () => {
           </Nav>
 
           {/* SEARCH */}
-          <div className="search-wrapper me-3">
+          <div className="search-wrapper me-3" ref={searchRef}>
             {showSearch && (
               <input
                 type="text"
@@ -83,18 +87,28 @@ const Header = () => {
                 autoFocus
                 onChange={(e) => setLocalSearch(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter") {
+                  if (e.key === "Enter" && localSearch.length > 0) {
                     confirmSearch();
+                  }
+                }}
+                onBlur={(e) => {
+                  // Si el foco se va fuera del search-wrapper → cerrar
+                  if (!searchRef.current?.contains(e.relatedTarget)) {
+                    setShowSearch(false);
+                    setLocalSearch("");
                   }
                 }}
               />
             )}
 
+
             <i
               className="bi bi-search search-toggle-icon"
               onClick={() => {
                 if (showSearch) {
-                  confirmSearch();  // 🔍 confirmar
+                  if (localSearch.length > 0) {
+                    confirmSearch();  // 🔍 confirmar
+                  }
                 } else {
                   setShowSearch(true); // 🔍 abrir input
                 }
@@ -126,22 +140,42 @@ const Header = () => {
         <div className="d-flex align-items-center ms-auto d-lg-none">
 
           {/* SEARCH */}
-          <div className="search-wrapper me-3">
+          <div className="search-wrapper me-3" ref={searchRef}>
             {showSearch && (
               <input
                 type="text"
                 placeholder="Buscar..."
                 className="search-input expand"
-                value={searchTerm}
+                value={localSearch}
                 autoFocus
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onBlur={() => setShowSearch(false)}
+                onChange={(e) => setLocalSearch(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && localSearch.length > 0) {
+                    confirmSearch();
+                  }
+                }}
+                onBlur={(e) => {
+                  // Si el foco se va fuera del search-wrapper → cerrar
+                  if (!searchRef.current?.contains(e.relatedTarget)) {
+                    setShowSearch(false);
+                    setLocalSearch("");
+                  }
+                }}
               />
             )}
 
+
             <i
               className="bi bi-search search-toggle-icon"
-              onClick={() => setShowSearch(prev => !prev)}
+              onClick={() => {
+                if (showSearch) {
+                  if (localSearch.length > 0) {
+                    confirmSearch();  // 🔍 confirmar
+                  }
+                } else {
+                  setShowSearch(true); // 🔍 abrir input
+                }
+              }}
             ></i>
           </div>
 

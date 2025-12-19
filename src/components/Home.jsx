@@ -1,12 +1,16 @@
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import BannerPrincipal from './BannerPrincipal';
 import ProductList from './ProductList';
 import { Button, Form, Offcanvas } from 'react-bootstrap';
+import { SearchContext } from "../context/SearchContext";
 
 const Home = () => {
   const [orden, setOrden] = useState("default");
   const [showFilters, setShowFilters] = useState(false);
   const [productsCount, setProductsCount] = useState(0);
+
+  const { searchTriggered, resetSearchTrigger, setSearchTerm } = useContext(SearchContext);
+
 
   const [filters, setFilters] = useState({
     marca: "All",
@@ -14,6 +18,14 @@ const Home = () => {
   });
 
   const [tempFilters, setTempFilters] = useState(filters);
+
+  useEffect(() => {
+    if (searchTriggered) {
+      setFilters({ marca: "All", precioMax: "" });
+      setTempFilters({ marca: "All", precioMax: "" });
+      resetSearchTrigger();
+    }
+  }, [searchTriggered, resetSearchTrigger]);
 
   return (
     <div className="container">
@@ -124,11 +136,16 @@ const Home = () => {
               className="w-100"
               onClick={() => {
                 setFilters(tempFilters);
+
+                // 🔥 limpiar búsqueda
+                setSearchTerm("");
+
                 setShowFilters(false);
               }}
             >
               Aplicar
             </Button>
+
 
           </div>
 
